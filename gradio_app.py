@@ -4,6 +4,9 @@ import sys
 sys.path.append("..")  # Go up one folder
 from theme_classifier import ThemeClassifier
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 
@@ -14,8 +17,8 @@ def get_themes(theme_list_str,subtitles_path,save_path):
 
     # Remove dialogue from the theme list
     theme_list = [theme for theme in theme_list if theme != 'dialogue']
-    output_df = output_df[theme_list]
-
+    existing_themes = [t for t in theme_list if t in output_df.columns]
+    output_df = output_df[existing_themes]
     output_df = output_df[theme_list].sum().reset_index()
     output_df.columns = ['Theme','Score']
 
@@ -49,7 +52,7 @@ def main():
                         subtitles_path = gr.Textbox(label="Subtitles or script Path")
                         save_path = gr.Textbox(label="Save Path")
                         get_themes_button =gr.Button("Get Themes")
-                        #get_themes_button.click(get_themes, inputs=[theme_list,subtitles_path,save_path], outputs=[plot])
+                        get_themes_button.click(get_themes, inputs=[theme_list,subtitles_path,save_path], outputs=[plot])
     iface.launch(share=True, debug=True)
 
 
