@@ -1,0 +1,9 @@
+transformers
+huggingface-hub
+nltk
+torch
+pandas 
+numpy
+gradio
+matplotlib
+seaborn
