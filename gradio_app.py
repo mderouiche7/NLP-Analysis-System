@@ -3,8 +3,9 @@ import gradio as gr
 import sys
 sys.path.append("..")  # Go up one folder
 from theme_classifier import ThemeClassifier
-
 import os
+
+
 
 def get_themes(theme_list_str,subtitles_path,save_path):
     theme_list = theme_list_str.split(',')
@@ -49,7 +50,7 @@ def main():
                         save_path = gr.Textbox(label="Save Path")
                         get_themes_button =gr.Button("Get Themes")
                         #get_themes_button.click(get_themes, inputs=[theme_list,subtitles_path,save_path], outputs=[plot])
-    iface.launch()
+    iface.launch(share=True, debug=True)
 
 
 
