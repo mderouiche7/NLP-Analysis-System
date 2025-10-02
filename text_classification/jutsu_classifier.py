@@ -17,7 +17,7 @@ from .custom_trainer import CustomTrainer
 
 class JutsuClassifier():
     def __init__(self,
-                 model_path="xkakashi/jutsu_classifier_7",
+                 model_path,
                  data_path=None,
                  text_column_name='text',
                  label_column_name='jutsu',
