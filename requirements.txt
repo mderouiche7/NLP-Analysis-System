@@ -1,6 +1,5 @@
 transformers
 huggingface-hub
-nltk
 torch
 pandas 
 numpy
@@ -11,3 +10,6 @@ dotenv
 spacy
 spacy[transformers]
 pyvis
+scikit-learn
+datasets
+evaluate
