@@ -15,3 +15,4 @@ datasets
 evaluate
 git+https://github.com/huggingface/peft
 trl
+bitsandbytes
