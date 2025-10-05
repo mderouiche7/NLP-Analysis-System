@@ -11,30 +11,40 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
-def get_themes(theme_list_str,subtitles_path,save_path):
-    theme_list = theme_list_str.split(',')
-    theme_classifier = ThemeClassifier(theme_list)
-    output_df = theme_classifier.get_themes(subtitles_path,save_path)
+def get_themes(theme_list_str, subtitles_path, save_path):
+    # Clean theme names: strip whitespace and newlines
+    theme_list = [theme.strip() for theme in theme_list_str.split(',') if theme.strip()]
 
-    # Remove dialogue from the theme list
-    theme_list = [theme for theme in theme_list if theme != 'dialogue']
+    theme_classifier = ThemeClassifier(theme_list)
+    output_df = theme_classifier.get_themes(subtitles_path, save_path)
+
+    # Ensure all themes exist in output_df
+    for theme in theme_list:
+        if theme not in output_df.columns:
+            output_df[theme] = 0.0
+
+    # Remove 'dialogue' theme
+    theme_list = [theme for theme in theme_list if theme.lower() != 'dialogue']
+
+    # Safely index
     output_df = output_df[theme_list]
 
-    output_df = output_df[theme_list].sum().reset_index()
-    output_df.columns = ['Theme','Score']
+    output_df = output_df.sum().reset_index()
+    output_df.columns = ['Theme', 'Score']
 
     output_chart = gr.BarPlot(
         output_df,
         x="Theme",
         y="Score",
         title="Series Themes",
-        tooltip=["Theme","Score"],
+        tooltip=["Theme", "Score"],
         vertical=False,
         width=500,
         height=260
     )
 
     return output_chart
+
 
 def get_character_network(subtitles_path,ner_path):
     ner = NamedEntityRecognizer()
