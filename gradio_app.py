@@ -11,6 +11,10 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 
+
+
+
+
 def get_themes(theme_list_str, subtitles_path, save_path):
     # Clean theme names: strip whitespace and newlines
     theme_list = [theme.strip() for theme in theme_list_str.split(',') if theme.strip()]
@@ -72,7 +76,7 @@ def classify_text(text_classifcation_model,text_classifcation_data_path,text_to_
 
 
 def chat_with_character_chatbot(message, history):
-    character_chatbot = CharacterChatBot("xkakashi/Naruto_Llama-3-8B_2",
+    character_chatbot = CharacterChatBot("AbdullahTarek/Naruto_Llama-3-8B",
                                          huggingface_token = os.getenv('huggingface_token')
                                          )
 
