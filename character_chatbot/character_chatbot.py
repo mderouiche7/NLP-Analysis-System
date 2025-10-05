@@ -28,13 +28,15 @@ class CharacterChatBot:
         conversation = []
         conversation.append("You are Naruto from the anime 'Naruto'. Respond like him.")
 
+            
+        # Add only the conversation content, no "User:" / "Naruto:" labels
         for msg, resp in history:
-            conversation.append(f"User: {msg}")
-            conversation.append(f"Naruto: {resp}")
+            prompt += f"{msg}\n{resp}\n"
 
-        conversation.append(f"User: {message}")
+        # Add the new user message
+        prompt += f"{message}\n"
 
-        prompt = "\n".join(conversation)
+
 
         output = self.model(
             prompt,
@@ -43,5 +45,9 @@ class CharacterChatBot:
             temperature=0.6,
             top_p=0.9
         )
+            
+        # The model output is full text — strip the prompt to keep only Naruto’s reply
+        generated_text = output[0]["generated_text"]
+        reply = generated_text[len(prompt):].strip()
 
-        return {"content": output[0]["generated_text"]}
+        return {"content": reply} 
