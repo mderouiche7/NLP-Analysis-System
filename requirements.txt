@@ -13,3 +13,6 @@ pyvis
 scikit-learn
 datasets
 evaluate
+git+https://github.com/huggingface/peft.git
+trl
+bitsandbytes
