@@ -22,36 +22,33 @@ class CharacterChatBot:
             torch_dtype=torch.float16 # use fp16 for large models
         )
         return pipeline
-def chat(self, message, history):
-    # Initialize the prompt with system instructions
-    prompt = "You are Naruto from the anime 'Naruto'. Respond as Naruto, in his style and personality.\n"
+    
+    def chat(self, message, history):
+        # Build the conversation prompt
+        prompt = "You are Naruto from the anime 'Naruto'. Respond like him.\n"
+        
+        for user_msg, assistant_msg in history:
+            prompt += f"User: {user_msg}\n"
+            prompt += f"Naruto: {assistant_msg}\n"
+        
+        prompt += f"User: {message}\nNaruto:"
 
-    # Append conversation history
-    for msg, resp in history:
-        prompt += f"{msg}\n{resp}\n"
+        # Tokenize prompt
+        inputs = self.model.tokenizer(prompt, return_tensors="pt").to(self.device)
 
-    # Append the current user message
-    prompt += f"{message}\n"
+        # Generate
+        output_ids = self.model.generate(
+            **inputs,
+            max_length=inputs.input_ids.shape[1] + 256,
+            eos_token_id=self.model.tokenizer.eos_token_id,
+            do_sample=True,
+            temperature=0.6,
+            top_p=0.9
+        )
 
-    # Define EOS tokens if needed
-    terminator = [
-        self.model.tokenizer.eos_token_id,
-        self.model.tokenizer.convert_tokens_to_ids("<|eot_id|>")
-    ]
+        # Decode generated text
+        generated_text = self.model.tokenizer.decode(output_ids[0], skip_special_tokens=True)
 
-    # Generate response from model
-    output = self.model(
-        prompt,
-        max_length=512,
-        eos_token_id=terminator,
-        do_sample=True,
-        temperature=0.6,
-        top_p=0.9
-    )
-
-    # Extract only the reply text (remove the prompt part)
-    generated_text = output[0]["generated_text"]
-    reply = generated_text[len(prompt):].strip()
-
-    return {"content": reply}
-
+        # Remove prompt and return only generated part
+        response = generated_text[len(prompt):].strip()
+        return {"content": response}
