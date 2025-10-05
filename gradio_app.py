@@ -4,6 +4,7 @@ from character_network import NamedEntityRecognizer, CharacterNetworkGenerator
 from text_classification import JutsuClassifier
 from character_chatbot import CharacterChatBot
 
+
 import huggingface_hub
 
 import os
