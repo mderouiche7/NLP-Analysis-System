@@ -22,32 +22,36 @@ class CharacterChatBot:
             torch_dtype=torch.float16 # use fp16 for large models
         )
         return pipeline
+def chat(self, message, history):
+    # Initialize the prompt with system instructions
+    prompt = "You are Naruto from the anime 'Naruto'. Respond as Naruto, in his style and personality.\n"
 
-    def chat(self, message, history):
-        # Combine history and current message
-        conversation = []
-        conversation.append("You are Naruto from the anime 'Naruto'. Respond like him.")
+    # Append conversation history
+    for msg, resp in history:
+        prompt += f"{msg}\n{resp}\n"
 
-            
-        # Add only the conversation content, no "User:" / "Naruto:" labels
-        for msg, resp in history:
-            prompt += f"{msg}\n{resp}\n"
+    # Append the current user message
+    prompt += f"{message}\n"
 
-        # Add the new user message
-        prompt += f"{message}\n"
+    # Define EOS tokens if needed
+    terminator = [
+        self.model.tokenizer.eos_token_id,
+        self.model.tokenizer.convert_tokens_to_ids("<|eot_id|>")
+    ]
 
+    # Generate response from model
+    output = self.model(
+        prompt,
+        max_length=512,
+        eos_token_id=terminator,
+        do_sample=True,
+        temperature=0.6,
+        top_p=0.9
+    )
 
+    # Extract only the reply text (remove the prompt part)
+    generated_text = output[0]["generated_text"]
+    reply = generated_text[len(prompt):].strip()
 
-        output = self.model(
-            prompt,
-            max_length=512,
-            do_sample=True,
-            temperature=0.6,
-            top_p=0.9
-        )
-            
-        # The model output is full text — strip the prompt to keep only Naruto’s reply
-        generated_text = output[0]["generated_text"]
-        reply = generated_text[len(prompt):].strip()
+    return {"content": reply}
 
-        return {"content": reply} 
