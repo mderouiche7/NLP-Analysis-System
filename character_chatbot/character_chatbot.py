@@ -9,7 +9,7 @@ from transformers import (
     AutoModelForCausalLM,
     AutoTokenizer,
 )
-from peft import LoraConfig, PeftModel
+from peft import LoraConfig, PeftModel, TaskType
 from trl import SFTConfig, SFTTrainer
 import gc
 
@@ -125,7 +125,7 @@ class CharacterChatBot():
             lora_dropout=lora_dropout,
             r=lora_r,
             bias="none",
-            task_type="CASUAL_LM"
+            task_type=TaskType.CAUSAL_LM 
         )
 
         training_arguments = SFTConfig(
