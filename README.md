@@ -57,7 +57,7 @@ The **AI–NLP Analysis System** is a modular project designed for **academic re
   <img src="assets/gradio_demo.png" alt="Gradio Chatbot Demo" width="700"/>
 </p>
 
-## 🧰 Tech Stack
+##  Tech Stack
 
 <div align="center">
 
@@ -71,9 +71,20 @@ The **AI–NLP Analysis System** is a modular project designed for **academic re
 
 ---
 
-## ⚡ Installation & Setup
+##  Installation & Setup
 
-### 1️⃣ Clone the Repository
+### 1️ Clone the Repository
 ```bash
 git clone https://github.com/<your-username>/NLP-Analysis-System.git
 cd NLP-Analysis-System
+
+
+---
+
+## ⚙️ Required Setup for NER Character Network
+
+The NER module uses SpaCy’s transformer-based English model `en_core_web_trf`, which must be installed manually if you are working in a cloud environment:
+
+```bash
+pip install spacy
+python -m spacy download en_core_web_trf
