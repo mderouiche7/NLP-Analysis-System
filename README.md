@@ -1,5 +1,3 @@
-![Naruto NLP Chatbot Banner](assets/naruto_banner.jpg)
-
 
 <h1 align="center"> NLP-Analysis-System: Classification, Character Networks, and Chatbots</h1>
 
