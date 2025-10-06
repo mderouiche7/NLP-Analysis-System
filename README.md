@@ -1,6 +1,6 @@
 <p align="center">
 
-  <img src="NLP-Analysis-System/assets/naruto_banner.jpg" alt="Naruto NLP Chatbot Banner" width="800"/>
+  <img src="NLP-Analysis-System/naruto_banner.jpg" alt="Naruto NLP Chatbot Banner" width="800"/>
 </p>
 
 <h1 align="center"> NLP-Analysis-System: Classification, Character Networks, and Chatbots</h1>
