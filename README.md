@@ -51,7 +51,13 @@ The **AI–NLP Analysis System** is a modular project designed for **academic re
 ##  Demo
 
 <p align="center">
-  <img src="assets/gradio_demo.png" alt="Gradio Chatbot Demo" width="700"/>
+  <img src="assets/Chatbot_demo.jpg" alt="Chatbot Demo" width="45%" style="margin: 5px"/>
+  <img src="assets/Txt_Class_demo.jpg" alt="Text Classifier Demo" width="45%" style="margin: 5px"/>
+</p>
+
+<p align="center">
+  <img src="assets/NER_graph_demo.jpg" alt="NER Graph Demo" width="45%" style="margin: 5px"/>
+  <img src="assets/Theme_classi_demo.jpg" alt="Theme Classifier Demo" width="45%" style="margin: 5px"/>
 </p>
 
 ##  Tech Stack
